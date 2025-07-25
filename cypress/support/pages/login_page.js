@@ -1,35 +1,50 @@
 /// <reference types="cypress" />
 
-export default{
-    clicarLogin() {
-        cy.get('#btnLogin')
-            .click()    
+// Elementos
+const elements = {
+    buttons: {
+        login: '#btnLogin'
+    },
+    fields: {
+        email: '#user',
+        password: '#password'
+    },
+    messages : {
+        error: '.invalid_input',
+        successTitle: '#swal2-title',
+        successSubtitles: '#swal2-html-container'
+    }
+}
+
+// Ações dos metodos
+export default {
+    saveLogin() {
+        cy.get(elements.buttons.login)
+        .click()
     },
 
-    checkErrorMessage(message) {
-        cy.get('.invalid_input')
-            .should('be.visible')
-            .and('have.text', message)   
+    fillEmail(email) {
+    cy.get(elements.fields.email)
+        .should('be.visible')
+        .type(email)
     },
 
-    preencherEmail(email) {
-        cy.get('#user')
-            .type(email) 
+    fillPassword(password) {
+        cy.get(elements.fields.password)
+        .should('be.visible')
+        .type(password)
     },
 
-       preencherSenha(senha) {
-        cy.get('#password')
-            .type(senha)
+    checkMessage(message) {
+        cy.get(elements.messages.error)
+        .should('have.text', message)
     },
 
-    validarMensagemSucesso(email) {
-        cy.get('#swal2-title')
-               .should('be.visible')
-               .should('have.text', 'Login realizado')
-               
-        cy.get('swal2-html-container')
-                .should('be.visible')
-                .should('have.text', `Olá, ${email}`)       
-    },
+    messageSucesso(email) {
+        cy.get(elements.messages.successTitle)
+        .should('have.text', 'Login realizado')
 
+        cy.get(elements.messages.successSubtitles, {timeout: 3000})
+        .should('have.text', `Olá, ${email}`) 
+    }
 }

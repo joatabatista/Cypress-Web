@@ -12,22 +12,22 @@ Given("Que eu esteja na tela de login", () => {
 })
 
 When("E clico no login", () => {
-    login_page.clicarLogin()
+    login_page.saveLogin()
 })
 
 Then("Visualizo mensagem {string}", (message) => {
-    login_page.checkErrorMessage(message)
+    login_page.checkMessage(message)
 })
 
 Given("Preencho e-mail", () => {
-    login_page.preencherEmail(email)
+    login_page.fillEmail(email)
 })
 
 Given("Preencho a credenciais", () => {
-    login_page.preencherEmail(email)
-    login_page.preencherSenha(faker.internet.password())
+    login_page.fillEmail(email)
+    login_page.fillPassword(faker.internet.password())
 })
 
 Then("Visializo mensagem de suceso", () => {
-    login_page.validarMensagemSucesso(email)
+    login_page.messageSucesso(email)
 })
